@@ -13,5 +13,9 @@ public class Faculty : IdentityUser
     [Key]
     [Required]
     public string? OrediggerId { get; set; }
+
+    public string getFacultyName() {
+        return this.FirstName + " " + this.LastName;
+    }
 }
 

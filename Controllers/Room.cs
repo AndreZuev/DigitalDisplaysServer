@@ -33,8 +33,8 @@ public class RoomController : ControllerBase
     [AllowAnonymous]
     [ProducesResponseType(400)]
     [ProducesResponseType(typeof(RoomNotFound), 404)]
-    [ProducesResponseType(typeof(IEnumerable<GetRoomModel>), 200)]
-    public ActionResult<IEnumerable<GetRoomModel>> Get(int roomnumber)
+    [ProducesResponseType(typeof(GetRoomModel), 200)]
+    public IActionResult Get(int roomnumber)
     {
         if (!doesRoomExist(roomnumber)) {
             return NotFound(new RoomNotFound() { RoomNumber = roomnumber });
@@ -63,8 +63,10 @@ public class RoomController : ControllerBase
             }).ToList();
 
         return Ok(new GetRoomModel() {
+            RoomNumber = roomnumber,
             Schedules = schedules,
-            Messages = messages
+            Messages = messages,
+            RoomMap = "MFloor" + roomnumber.ToString()[0] + ".png" // TODO: Fix later.
         });
     }
 

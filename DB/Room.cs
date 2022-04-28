@@ -9,4 +9,3 @@ public class Room
     public int RoomNumber { get; set; } = -1;
 
 }
-

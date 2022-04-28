@@ -25,6 +25,7 @@ public class WeatherController : ControllerBase
     public async Task<IActionResult> Get()
     {
         WeatherModel weather = new WeatherModel();
+
         using (HttpClient client = new HttpClient())
         {
             string Apikey = "8d22ce60497679c6e7120a11e3fb228b";
@@ -38,7 +39,7 @@ public class WeatherController : ControllerBase
                 response.EnsureSuccessStatusCode();
                 string responseBody = response.Content.ReadAsStringAsync().Result;
                 dynamic? jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseBody);
-                weather.Condtion = jsonResponse["weather"][0]["main"];
+                weather.Condition = jsonResponse["weather"][0]["main"];
                 weather.TemperatureF = jsonResponse["main"]["temp"];
                 weather.TemperatureF = Math.Round(1.8 * (weather.TemperatureF - 273.0) + 32.0,2, MidpointRounding.AwayFromZero);
             }
